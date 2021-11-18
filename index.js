@@ -19,8 +19,6 @@ module.exports = {
 
     // Hooks
     app.addHook('parser-find-elements', parserFindElements)
-
-    codeceptionObj.function = {}
   }
 }
 
