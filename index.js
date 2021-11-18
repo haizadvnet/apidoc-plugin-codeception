@@ -41,13 +41,13 @@ function parserFindElements(elements, element, block, filename) {
       pushKey = parsedElement.url
       pushMethod = String(parsedElement.type).toLowerCase()
 
-      title = 'ApiName'
-      if (parsedElement.title) {
-        title = parsedElement.title
+      APIname = 'ApiName'
+      if (parsedElement.name) {
+        APIname = parsedElement.name
       }
 
       // codeceptionName[counter] = String(parsedElement.title).replace(/ +/g, "")
-      codeceptionName[counter] =  title
+      codeceptionName[counter] =  String(APIname).replace(/ +/g, "")
       codeceptionURL[counter] =  parsedElement.url
       codeceptionMethod[counter] =  pushMethod
       codeceptionIsJSON[counter] = true // hardcoded JSON
@@ -86,12 +86,19 @@ process.on('exit', (code) => {
 
     codeceptionName.forEach(myFunction);
 
-    
+    paramArray = '[]'
+
     function myFunction(item, index) {
 
-      // console.log(item);
-      docs += 'public function ' + item + '(\ApiTester $I)\r\n{\r\n$I->haveHttpHeader(\'accept\', \'application/json\');' + codeceptionURL[index];
+      docs += 'public function ' + item + '(\\ApiTester $I)\r\n{\r\n$I->haveHttpHeader(\'accept\', \'application/json\'); '
+      docs += '\r\n$I->haveHttpHeader(\'content-type\', \'application/json\');\r\n$I->haveHttpHeader(\'content-type\', '
+      docs += '\'application/json\');\r\n$I->sendPost(\'/'+codeceptionURL[index]+'\', '
+      docs += paramArray
+      docs += ');'
+      docs += '\r\n$I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);'
+      docs += '\r\n$I->seeResponseIsJson();\r\n}\r\n\r\n'
     }
+
     fs.writeFileSync(destinationFilePath, '<?php\r\n\r\nclass ApiDocCest\r\n{\r\n'+docs+'\r\n}\r\n\r\n?>', function (err) {
       if (err) throw err;
       console.log(`[apidoc-plugin-codeception] ApiDocCest.php file saved successfully`)
