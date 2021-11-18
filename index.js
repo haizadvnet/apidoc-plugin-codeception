@@ -3,7 +3,7 @@ const fs = require('fs')
 // const converter = require('./converters')
 
 let app = {}
-let docs = 'public function ';
+let docs = '';
 let codeceptionName = []
 let codeceptionURL = []
 let codeceptionMethod = []
@@ -40,8 +40,14 @@ function parserFindElements(elements, element, block, filename) {
     if (element.name === 'api') {
       pushKey = parsedElement.url
       pushMethod = String(parsedElement.type).toLowerCase()
+
+      title = 'ApiName'
+      if (parsedElement.title) {
+        title = parsedElement.title
+      }
+
       // codeceptionName[counter] = String(parsedElement.title).replace(/ +/g, "")
-      codeceptionName[counter] =  parsedElement.url
+      codeceptionName[counter] =  title
       codeceptionURL[counter] =  parsedElement.url
       codeceptionMethod[counter] =  pushMethod
       codeceptionIsJSON[counter] = true // hardcoded JSON
@@ -84,7 +90,7 @@ process.on('exit', (code) => {
     function myFunction(item, index) {
 
       console.log(item);
-      docs += item + '(\ApiTester $I)\r\n{\r\n$I->haveHttpHeader(\'accept\', \'application/json\');' + codeceptionURL[index];
+      docs += 'public function ' + item + '(\ApiTester $I)\r\n{\r\n$I->haveHttpHeader(\'accept\', \'application/json\');' + codeceptionURL[index];
     }
     fs.writeFileSync(destinationFilePath, '<?php\r\n\r\nclass ApiDocCest\r\n{\r\n'+docs+'\r\n}\r\n\r\n?>', function (err) {
       if (err) throw err;
