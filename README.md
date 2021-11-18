@@ -5,7 +5,7 @@ Inspired by apidoc-plugin-swagger
 https://github.com/sadeghmohebbi/apidoc-plugin-swagger. Thank you for showing me that we can also build own plugin for apidoc :)
 
 
-Hopefully this plugin will solve issue on https://github.com/apidoc/apidoc/issues/661
+Hopefully this plugin will helps developer to do API testing by referring to the apidoc schema.
 
 ## About apidoc-plugin-codeception
 
