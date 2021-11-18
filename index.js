@@ -40,7 +40,7 @@ function parserFindElements(elements, element, block, filename) {
     if (element.name === 'api') {
       pushKey = parsedElement.url
       pushMethod = String(parsedElement.type).toLowerCase()
-      codeceptionName[counter] = String(parsedElement.description).replace(/ +/g, "")
+      codeceptionName[counter] = String(parsedElement.title).replace(/ +/g, "")
       codeceptionURL[counter] =  parsedElement.url
       codeceptionMethod[counter] =  pushMethod
       codeceptionIsJSON[counter] = true // hardcoded JSON
@@ -62,7 +62,7 @@ process.on('exit', (code) => {
   // triggerd from apidoc when proccess finished successfully
   // TODO: provide callback when apidoc works finished (this event called only when we use cli)
   if (code === 0 && counter > 0 && (process.argv.includes('-o') || process.argv.includes('--output'))) {
-    console.log(`[apidoc-plugin-codeception] parse and convert ${counter} element${(counter == 1) ? '' : 's'} to swagger format`)
+    console.log(`[apidoc-plugin-codeception] parse and convert ${counter} element${(counter == 1) ? '' : 's'} to codeception API test format`)
 
     function getOutputDir() {
       let outFlagIndex = process.argv.indexOf('-o')
