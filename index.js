@@ -40,7 +40,8 @@ function parserFindElements(elements, element, block, filename) {
     if (element.name === 'api') {
       pushKey = parsedElement.url
       pushMethod = String(parsedElement.type).toLowerCase()
-      codeceptionName[counter] = String(parsedElement.title).replace(/ +/g, "")
+      // codeceptionName[counter] = String(parsedElement.title).replace(/ +/g, "")
+      codeceptionName[counter] =  parsedElement.url
       codeceptionURL[counter] =  parsedElement.url
       codeceptionMethod[counter] =  pushMethod
       codeceptionIsJSON[counter] = true // hardcoded JSON
