@@ -91,7 +91,7 @@ process.on('exit', (code) => {
       docs += '\r\n$I->haveHttpHeader(\'content-type\', \'application/json\');\r\n$I->sendPost(\''+codeceptionURL[index]+'\', '
       docs += paramArray
       docs += ');'
-      docs += '\r\n$I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);'
+      // docs += '\r\n$I->seeResponseCodeIs(\\Codeception\\Util\\HttpCode::OK);'
       docs += '\r\n$I->seeResponseIsJson();\r\n}\r\n\r\n'
     }
 
