@@ -45,6 +45,10 @@ function parserFindElements(elements, element, block, filename) {
       APIname = 'ApiName'
       if (parsedElement.name) {
         APIname = parsedElement.name
+      }else if (parsedElement.title) {
+        APIname = parsedElement.title
+      }else if (parsedElement.group) {
+        APIname = parsedElement.group
       }
 
       // codeceptionName[counter] = String(parsedElement.title).replace(/ +/g, "")
