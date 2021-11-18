@@ -3,6 +3,7 @@ const fs = require('fs')
 // const converter = require('./converters')
 
 let app = {}
+let docs = 'public function ';
 let codeceptionName = []
 let codeceptionURL = []
 let codeceptionMethod = []
@@ -78,7 +79,7 @@ process.on('exit', (code) => {
 
     codeceptionName.forEach(myFunction);
 
-    let docs = 'public function ';
+    
     function myFunction(item, index) {
       docs += item + '(\ApiTester $I)\r\n{\r\n$I->haveHttpHeader(\'accept\', \'application/json\');' + codeceptionURL[index];
     }
