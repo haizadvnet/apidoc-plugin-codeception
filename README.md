@@ -7,6 +7,8 @@ https://github.com/sadeghmohebbi/apidoc-plugin-swagger. Thank you for showing me
 
 Hopefully this plugin will solve issue on https://github.com/apidoc/apidoc/issues/661
 
+*This plugin only support JSON request and response.
+
 ## Installation
 ```
 npm i haizadvnet/apidoc-plugin-codeception -g
