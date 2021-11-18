@@ -7,7 +7,11 @@ https://github.com/sadeghmohebbi/apidoc-plugin-swagger. Thank you for showing me
 
 Hopefully this plugin will solve issue on https://github.com/apidoc/apidoc/issues/661
 
-*This plugin only support JSON request and response.
+## About apidoc-plugin-codeception
+
+1. This plugin only support JSON request and response.
+2. This plugin skipped any authorization token such as bearer etc.
+3. Please ensure your API can take parameter "skipToken":true if you want to disable API authorization token.
 
 ## Installation
 ```

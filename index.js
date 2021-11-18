@@ -4,7 +4,7 @@ const fs = require('fs')
 
 let app = {}
 let docs = '';
-let paramArray = '[]';
+let paramArray = '[ \'skipToken\' => true ]';
 let codeceptionName = []
 let codeceptionURL = []
 let codeceptionMethod = []
