@@ -4,6 +4,7 @@ const fs = require('fs')
 
 let app = {}
 let docs = '';
+let paramArray = '[]';
 let codeceptionName = []
 let codeceptionURL = []
 let codeceptionMethod = []
@@ -85,8 +86,6 @@ process.on('exit', (code) => {
     console.log(`[apidoc-plugin-codeception] going to save at path: ${destinationFilePath}`)
 
     codeceptionName.forEach(myFunction);
-
-    paramArray = '[]'
 
     function myFunction(item, index) {
 
