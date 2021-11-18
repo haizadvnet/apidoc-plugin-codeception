@@ -89,10 +89,11 @@ process.on('exit', (code) => {
 
     function myFunction(item, index) {
 
-      docs += 'public function ' + item + '(\\ApiTester $I)\r\n{\r\n$I->haveHttpHeader(\'accept\', \'application/json\'); '
+      test = 'test'
+      docs += 'public function ' + test + '(\\ApiTester $I)\r\n{\r\n$I->haveHttpHeader(\'accept\', \'application/json\'); '
       docs += '\r\n$I->haveHttpHeader(\'content-type\', \'application/json\');\r\n$I->haveHttpHeader(\'content-type\', '
-      docs += '\'application/json\');\r\n$I->sendPost(\'/'+codeceptionURL[index]+'\', '
-      docs += paramArray
+      docs += '\'application/json\');\r\n$I->sendPost(\'/'+test+'\', '
+      docs += test
       docs += ');'
       docs += '\r\n$I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);'
       docs += '\r\n$I->seeResponseIsJson();\r\n}\r\n\r\n'
