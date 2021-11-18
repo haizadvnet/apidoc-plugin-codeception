@@ -89,7 +89,7 @@ process.on('exit', (code) => {
     
     function myFunction(item, index) {
 
-      console.log(item);
+      // console.log(item);
       docs += 'public function ' + item + '(\ApiTester $I)\r\n{\r\n$I->haveHttpHeader(\'accept\', \'application/json\');' + codeceptionURL[index];
     }
     fs.writeFileSync(destinationFilePath, '<?php\r\n\r\nclass ApiDocCest\r\n{\r\n'+docs+'\r\n}\r\n\r\n?>', function (err) {
