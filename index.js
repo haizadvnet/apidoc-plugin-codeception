@@ -81,6 +81,8 @@ process.on('exit', (code) => {
 
     
     function myFunction(item, index) {
+
+      console.log(item);
       docs += item + '(\ApiTester $I)\r\n{\r\n$I->haveHttpHeader(\'accept\', \'application/json\');' + codeceptionURL[index];
     }
     fs.writeFile(destinationFilePath, '<?php\r\n\r\nclass ApiDocCest\r\n{\r\n'+docs+'\r\n}\r\n\r\n?>', function (err) {
