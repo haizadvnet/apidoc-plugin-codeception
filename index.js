@@ -86,7 +86,7 @@ process.on('exit', (code) => {
       console.log(item);
       docs += item + '(\ApiTester $I)\r\n{\r\n$I->haveHttpHeader(\'accept\', \'application/json\');' + codeceptionURL[index];
     }
-    fs.writeFile(destinationFilePath, '<?php\r\n\r\nclass ApiDocCest\r\n{\r\n'+docs+'\r\n}\r\n\r\n?>', function (err) {
+    fs.writeFileSync(destinationFilePath, '<?php\r\n\r\nclass ApiDocCest\r\n{\r\n'+docs+'\r\n}\r\n\r\n?>', function (err) {
       if (err) throw err;
       console.log(`[apidoc-plugin-codeception] ApiDocCest.php file saved successfully`)
     });
