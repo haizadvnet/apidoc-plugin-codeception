@@ -20,6 +20,11 @@ npm i haizadvnet/apidoc-plugin-codeception -g
 
 ```ApiDocCest.php``` will be generated once you generate your apidoc.
 
+
+Pass ```"checkStatus200":true``` inside your APIdoc config if you want to check all API response status code is 200.
+
+apidoc -i . -o doc/ -c doc/config.json
+
 Todo list:
 - [ ] Pass parameter from apidoc into codeception api testing script
 
