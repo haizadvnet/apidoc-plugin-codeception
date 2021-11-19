@@ -20,8 +20,10 @@ npm i haizadvnet/apidoc-plugin-codeception -g
 
 ```ApiDocCest.php``` will be generated once you generate your apidoc.
 
+## Configs
+1. Add ```"codeception_path":[TEST API PATH]``` inside your APIdoc config file to inform plugin where to generate your codeception api testing script. Example ```"codeception_path":tests/api```
 
-Add ```"checkStatus200":true``` inside your APIdoc config file if you want to check all API response status code is 200.
+2. Add ```"checkStatus200":true``` inside your APIdoc config file if you want to check all API response status code is 200.
 
 ## Example
 ```

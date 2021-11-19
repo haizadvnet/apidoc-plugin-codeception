@@ -84,14 +84,6 @@ process.on("exit", (code) => {
       } to codeception API test format`
     );
 
-    function getOutputDir() {
-      let outFlagIndex = process.argv.indexOf("-o");
-      if (outFlagIndex === -1) {
-        outFlagIndex = process.argv.indexOf("--output");
-      }
-      return process.argv[outFlagIndex + 1];
-    }
-
     function getTestConfig() {
       let configpath = process.argv.indexOf("-c");
       if (configpath === -1) {
@@ -101,6 +93,8 @@ process.on("exit", (code) => {
       return process.argv[configpath + 1];
     }
 
+    config.codeception_path = "";
+    
     try {
       let configs = fs.readFileSync(getTestConfig());
       config = JSON.parse(configs);
@@ -110,7 +104,7 @@ process.on("exit", (code) => {
 
     const destinationFilePath = path.join(
       process.cwd(),
-      getOutputDir(),
+      config.codeception_path,
       "ApiDocCest.php"
     );
     console.log(
