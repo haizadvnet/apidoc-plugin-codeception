@@ -93,7 +93,11 @@ process.on("exit", (code) => {
     }
 
     function getTestConfig() {
-      let configpath = process.argv.indexOf("--testconfig");
+      let configpath = process.argv.indexOf("-c");
+      if (configpath === -1) {
+        configpath = process.argv.indexOf("--config");
+      }
+
       return process.argv[configpath + 1];
     }
 
