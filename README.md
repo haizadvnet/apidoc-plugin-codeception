@@ -25,6 +25,8 @@ npm i haizadvnet/apidoc-plugin-codeception -g
 
 2. Add ```"checkStatus200":true``` inside your APIdoc config file if you want to check all API response status code is 200.
 
+Refer https://github.com/haizadvnet/apidoc-plugin-codeception/blob/master/config.json
+
 ## Example
 ```
 apidoc -i . -o doc/ -c doc/config.json
