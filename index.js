@@ -3,16 +3,16 @@ const fs = require("fs");
 // const converter = require('./converters')
 
 let app = {};
-let docs = "";
+let schema = "";
 let config = {};
-let paramArray = "[ 'skipToken' => true ]";
 let codeceptionName = [];
 let codeceptionURL = [];
 let codeceptionMethod = [];
 let codeceptionIsJSON = [];
 let codeceptionParam = [];
 let counter = 0;
-let to_append_function = 0; //To make function name unique
+let hasContent = false;
+let isString = true;
 /**
  * Hook overview: https://github.com/apidoc/apidoc-core/hooks.md
  */
@@ -30,7 +30,7 @@ let pushMethod = null;
 
 // iterate over all elements
 function parserFindElements(elements, element, block, filename) {
-  counter++;
+  // counter++;
   /**
    * element object properties:
    * source, name, sourceName, content
@@ -43,21 +43,41 @@ function parserFindElements(elements, element, block, filename) {
     ));
     const parsedElement = elementParser.parse(element.content, element.source);
 
-    if (element.name === "api") {
-      pushKey = parsedElement.url;
-      pushMethod = String(parsedElement.type).toLowerCase();
+    for (const [key, value] of Object.entries(parsedElement)) {
 
-      APIname = "ApiName";
-
-      if (parsedElement.title) {
-        APIname = parsedElement.title;
+      if(key == 'name'){
+        counter++;
+        codeceptionName[counter] = String(value).replace(/[\W_]/g, "");
       }
 
-      codeceptionName[counter] = String(APIname).replace(/[\W_]/g, "");
-      codeceptionURL[counter] = parsedElement.url;
-      codeceptionMethod[counter] = pushMethod;
-      codeceptionIsJSON[counter] = true; // hardcoded JSON
+      if(key == 'url'){
+        codeceptionURL[counter] = value;
+      }
+
+      if(key == 'title' && value == 'Request-Example:'){
+        hasContent = true;
+      }
+      if(key == 'content' && hasContent == true){
+        var paramObj = JSON.parse(value);
+        var size = Object.keys(paramObj).length;
+
+        let params = '['
+        let i = 0
+        for (const [key, value] of Object.entries(paramObj)) {
+        
+        i ++
+        params += '\'' + key + '\' => ' 
+        
+        isString ? params += '\''+value+'\'' : params += value
+        
+        i < size ? params += ',' : params += ',\'skipToken\'=>true]'
+        }
+        codeceptionParam[counter] = String(params);
+
+        hasContent = false;
+      }
     }
+
   } catch (err) {
     console.error(
       "OOPS! errored element: " +
@@ -114,31 +134,28 @@ process.on("exit", (code) => {
     codeceptionName.forEach(myFunction);
 
     function myFunction(item, index) {
-      to_append_function++;
 
-      docs +=
+      schema +=
         "public function " +
         item +
-        "_" +
-        to_append_function +
         "(\\ApiTester $I)\r\n{\r\n$I->haveHttpHeader('accept', 'application/json'); ";
-      docs +=
+      schema +=
         "\r\n$I->haveHttpHeader('content-type', 'application/json');\r\n$I->sendPost('" +
         codeceptionURL[index] +
         "', ";
-      docs += paramArray;
-      docs += ");";
+      schema += codeceptionParam[index] !== undefined ? codeceptionParam[index] : '[\'skipToken\'=>true]';
+      schema += ");";
 
-      if (config.checkStatus200) {
-        docs += "\r\n$I->seeResponseCodeIs(\\Codeception\\Util\\HttpCode::OK);";
+      if (config.check_status_200) {
+        schema += "\r\n$I->seeResponseCodeIs(\\Codeception\\Util\\HttpCode::OK);";
       }
-      // docs += '\r\n$I->seeResponseCodeIs(\\Codeception\\Util\\HttpCode::OK);'
-      docs += "\r\n$I->seeResponseIsJson();\r\n}\r\n\r\n";
+      // schema += '\r\n$I->seeResponseCodeIs(\\Codeception\\Util\\HttpCode::OK);'
+      schema += "\r\n$I->seeResponseIsJson();\r\n}\r\n\r\n";
     }
 
     fs.writeFileSync(
       destinationFilePath,
-      "<?php\r\n\r\nclass ApiDocCest\r\n{\r\n" + docs + "\r\n}\r\n\r\n?>"
+      "<?php\r\n\r\nclass ApiDocCest\r\n{\r\n" + schema + "\r\n}\r\n\r\n?>"
     );
     console.log(
       `[apidoc-plugin-codeception] ApiDocCest.php file saved successfully`
