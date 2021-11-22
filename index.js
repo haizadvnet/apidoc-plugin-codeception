@@ -45,13 +45,13 @@ function parserFindElements(elements, element, block, filename) {
 
     for (const [key, value] of Object.entries(parsedElement)) {
 
-      if(key == 'name'){
+      if(key == 'url'){
         counter++;
-        codeceptionName[counter] = String(value).replace(/[\W_]/g, "");
+        codeceptionURL[counter] = value;
       }
 
-      if(key == 'url'){
-        codeceptionURL[counter] = value;
+      if(key == 'name'){
+        codeceptionName[counter] = String(value).replace(/[\W_]/g, "");
       }
 
       if(key == 'title' && value == 'Request-Example:'){
