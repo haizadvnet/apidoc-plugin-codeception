@@ -23,7 +23,7 @@ npm i haizadvnet/apidoc-plugin-codeception -g
 ## Configs
 1. Add ```"codeception_path":[TEST API PATH]``` inside your APIdoc config file to inform plugin where to generate your codeception api testing script. Example ```"codeception_path":tests/api```
 
-2. Add ```"checkStatus200":true``` inside your APIdoc config file if you want to check all API response status code is 200.
+2. Add ```"check_status_200":true``` inside your APIdoc config file if you want to check all API response status code is 200.
 
 Refer https://github.com/haizadvnet/apidoc-plugin-codeception/blob/master/config.json
 
@@ -32,7 +32,25 @@ Refer https://github.com/haizadvnet/apidoc-plugin-codeception/blob/master/config
 apidoc -i . -o doc/ -c doc/config.json
 ```
 
+## Output Sample
+```
+<?php
+
+class ApiDocCest
+{
+    public function getUser(\ApiTester $I)
+    {
+        $I->haveHttpHeader('accept', 'application/json');
+        $I->haveHttpHeader('content-type', 'application/json');
+        $I->sendPost('/user.php', ['Id' => '1','skipToken'=>true]);
+        $I->seeResponseIsJson();
+    }
+}
+
+?>
+```
+
 Todo list:
-- [ ] Pass parameter from apidoc into codeception api testing script
+- [x] Pass parameter from apidoc into codeception api testing script
 
 ### Feel free to contribute! I really appreciate your contribution
