@@ -4,6 +4,6 @@
     "description": "Documentation for the REST api access provided",
     "title": "Custom apiDoc browser title",
     "url" : "https://api.example.com",
-    "checkStatus200": false,
-    "codeceptionPath":"tests/api"
+    "check_status_200": false,
+    "codeception_path":"tests/api"
 }
