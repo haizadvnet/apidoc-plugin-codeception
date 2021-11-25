@@ -113,19 +113,19 @@ process.on("exit", (code) => {
       return process.argv[configpath + 1];
     }
 
-    config.codeception_path = "";
+    // config.codeception_path = "";
+    // config.cest_file_name = "ApiDocCest.php";
     
     try {
       let configs = fs.readFileSync(getTestConfig());
       config = JSON.parse(configs);
     } catch (err) {
-      //ignore
     }
 
     const destinationFilePath = path.join(
       process.cwd(),
       config.codeception_path,
-      "ApiDocCest.php"
+      config.cest_file_name
     );
     console.log(
       `[apidoc-plugin-codeception] going to save at path: ${destinationFilePath}`
@@ -150,7 +150,12 @@ process.on("exit", (code) => {
         schema += "\r\n$I->seeResponseCodeIs(\\Codeception\\Util\\HttpCode::OK);";
       }
       // schema += '\r\n$I->seeResponseCodeIs(\\Codeception\\Util\\HttpCode::OK);'
-      schema += "\r\n$I->seeResponseIsJson();\r\n}\r\n\r\n";
+      schema += "\r\n$I->seeResponseIsJson();";
+
+      if (!config.see_response_contains == "") {
+      schema += "\r\n$I->seeResponseContains('"+config.see_response_contains+"');";
+      }
+      schema += "\r\n}\r\n\r\n";
     }
 
     fs.writeFileSync(
@@ -158,7 +163,7 @@ process.on("exit", (code) => {
       "<?php\r\n\r\nclass ApiDocCest\r\n{\r\n" + schema + "\r\n}\r\n\r\n?>"
     );
     console.log(
-      `[apidoc-plugin-codeception] ApiDocCest.php file saved successfully`
+      `[apidoc-plugin-codeception] `+config.cest_file_name+` file saved successfully`
     );
   }
 });
