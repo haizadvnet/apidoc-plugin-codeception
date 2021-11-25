@@ -25,6 +25,10 @@ npm i haizadvnet/apidoc-plugin-codeception -g
 
 2. Add ```"check_status_200":true``` inside your APIdoc config file if you want to check all API response status code is 200.
 
+3. Add ```"cest_file_name":"[FILE NAME].php"``` inside your APIdoc config file to rename your cest file name. Default file name is ```ApiDocCest.php```.
+
+4. Add ```"see_response_contains":"[FIND THIS STRING]"``` inside your APIdoc config file to enable Codeception's seeResponseContains method. Leave the value as ```"see_response_contains":""``` if to disable the method.
+
 Refer https://github.com/haizadvnet/apidoc-plugin-codeception/blob/master/config.json
 
 ## Example
@@ -52,5 +56,7 @@ class ApiDocCest
 
 Todo list:
 - [x] Pass parameter from apidoc into codeception api testing script
+- [x] Add support for Codeception's seeResponseContains method
+- [ ] Add support for Codeception's seeResponseContainsJson method
 
 ### Feel free to contribute! I really appreciate your contribution

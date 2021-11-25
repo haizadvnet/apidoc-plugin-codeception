@@ -4,6 +4,8 @@
     "description": "Documentation for the REST api access provided",
     "title": "Custom apiDoc browser title",
     "url" : "https://api.example.com",
+    "cest_file_name": "ApiDocCest.php",
     "check_status_200": false,
-    "codeception_path":"tests/api"
+    "codeception_path":"tests/api",
+    "see_response_contains": ""
 }
