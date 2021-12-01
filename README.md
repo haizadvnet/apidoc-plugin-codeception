@@ -10,8 +10,7 @@ Hopefully this plugin will helps developer to do API testing by referring to the
 ## About apidoc-plugin-codeception
 
 1. This plugin only support JSON request and response.
-2. This plugin skipped any authorization token such as bearer etc.
-3. Please ensure your API can take parameter "skipToken":true if you want to disable API authorization token.
+2. Please ensure your API can take parameter "skipToken":true if you want to disable API authorization token.
 
 ## Installation
 ```
@@ -28,6 +27,8 @@ npm i haizadvnet/apidoc-plugin-codeception -g
 3. Add ```"cest_file_name":"[FILE NAME].php"``` inside your APIdoc config file to rename your cest file name. Default file name is ```ApiDocCest.php```.
 
 4. Add ```"see_response_contains":"[FIND THIS STRING]"``` inside your APIdoc config file to enable Codeception's seeResponseContains method. Leave the value as ```"see_response_contains":""``` if to disable the method.
+
+5. Add ```"bearer_token":"[TOKEN]"``` inside your APIdoc config file to enable Codeception's pass bearer token. Leave the value as ```"bearer_token":""``` if to hide bearer token.
 
 Refer https://github.com/haizadvnet/apidoc-plugin-codeception/blob/master/config.json
 

@@ -139,6 +139,11 @@ process.on("exit", (code) => {
         "public function " +
         item +
         "(\\ApiTester $I)\r\n{\r\n$I->haveHttpHeader('accept', 'application/json'); ";
+
+        if (!config.bearer_token == "") {
+          schema += "\r\n$I->haveHttpHeader('Authorization', 'Bearer "+config.bearer_token+"');";
+
+        }
       schema +=
         "\r\n$I->haveHttpHeader('content-type', 'application/json');\r\n$I->sendPost('" +
         codeceptionURL[index] +

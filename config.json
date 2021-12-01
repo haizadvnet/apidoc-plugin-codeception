@@ -7,5 +7,6 @@
     "cest_file_name": "ApiDocCest.php",
     "check_status_200": false,
     "codeception_path":"tests/api",
-    "see_response_contains": ""
+    "see_response_contains": "",
+    "bearer_token": ""
 }
